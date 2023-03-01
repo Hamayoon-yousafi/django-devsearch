@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # below we have registered our newly created app called 'projects'. we need to go to the
+    # app folder named 'projects' (in this case) then to the file apps.py
+    # and call the class in that file which in this case is called ProjectsConfig.
+    'projects.apps.ProjectsConfig'
 ]
 
 MIDDLEWARE = [
