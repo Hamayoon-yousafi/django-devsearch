@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
-
+ 
 def projects(request):
-    return HttpResponse('These are different products.')
+    return render(request, 'projects/projects.html')
 
 
 def project(request, id):
-    return HttpResponse(f'returned project with id {id}')
+    values = {
+        'project': id
+    }
+    return render(request, 'projects/single-project.html', values)
