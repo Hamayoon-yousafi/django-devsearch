@@ -3,7 +3,19 @@
 {% block content %}
 
 <h1>
-    Single Project Template {{ project }}
+    Single Project Template 
 </h1> 
+
+<ul>
+    <li>Title: {{ project.title }}</li>
+    <li>vote: {{ project.vote_total }}</li>
+    <li>tags: 
+        <ul>
+            {% for tag in project.tags.all %}
+                <li>{{ tag.name }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
 
 {% endblock content %}
