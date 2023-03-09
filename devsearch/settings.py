@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     # below we have registered our newly created app called 'projects'. we need to go to the
     # app folder named 'projects' (in this case) then to the file apps.py
     # and call the class in that file which in this case is called ProjectsConfig.
-    'projects.apps.ProjectsConfig'
+    'projects.apps.ProjectsConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
