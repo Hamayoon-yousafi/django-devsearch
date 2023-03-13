@@ -7,7 +7,7 @@ from .models import Profile
 def create_profile(sender, instance, created, **kwargs):
     if created:
         user = instance
-        Profile.objectes.create(
+        Profile.objects.create(
             user = user,
             username = user.name,
             email = user.email,

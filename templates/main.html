@@ -20,10 +20,24 @@
     <title>DevSearch - Connect with Developers!</title>
 </head>
 <body>
+    
     {% include 'navbar.html' %}
+
+    {% if messages %}
+        <div class="error-container">
+                {% for message in messages %}
+                    <div class="alert alert--{{ message.tags }}">
+                        <p class="alert__message">{{ message }}</p>
+                        <button class="alert__close"><i class="fa-regular fa-circle-xmark"></i></button>
+                    </div>
+                {% endfor %}
+        </div>
+    {% endif %}
 
     {% block content %}
     <!-- child content will be rendered here -->
     {% endblock content %}
 </body>
+<script src="{% static 'uikit/app.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 </html>
