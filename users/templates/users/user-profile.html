@@ -63,13 +63,13 @@
               {% endfor %}
   
               <h3 class="devInfo__subtitle">Other Skills</h3>
-              {% for skill in other_skills %}
               <div class="devInfo__otherSkills">
+              {% for skill in other_skills %}
                 <span class="tag tag--pill tag--sub tag--lg">
                   <small>{{ skill.name }}</small>
                 </span>
+                {% endfor %}
               </div>
-              {% endfor %}
             </div>
           </div>
           <div class="devInfo">
