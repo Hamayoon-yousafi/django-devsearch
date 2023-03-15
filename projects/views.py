@@ -1,10 +1,17 @@
 from django.shortcuts import render, redirect
 from .models import Project
 from django.contrib.auth.decorators import login_required
-from .forms import ProjectForm
+from .forms import ProjectForm 
+from .filters import ProjectFilter
 
-def projects(request): 
-    return render(request, 'projects/projects.html', {'projects': Project.objects.all()})
+def projects(request):  
+    project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
+    projects = project_filter.qs # the qs stands for Query Set and returns all the records searched for
+    values = {
+        'projects': projects, 
+        'project_filter': project_filter,  
+    }
+    return render(request, 'projects/projects.html', values)
 
 def project(request, id): 
     return render(request, 'projects/single-project.html', {'project': Project.objects.get(id=id)})

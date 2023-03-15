@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # installed through pip apps
+    'django_filters',
+    
     # below we have registered our newly created app called 'projects'. we need to go to the
     # app folder named 'projects' (in this case) then to the file apps.py
     # and call the class in that file which in this case is called ProjectsConfig.

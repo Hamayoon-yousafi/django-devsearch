@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
+from .utils import search_profiles
 
 def login_user(request):
     if request.user.is_authenticated:
@@ -56,8 +57,10 @@ def register_user(request):
     return render(request, 'users/login_register.html', values)
 
 def profiles(request):
+    profiles, search_query = search_profiles(request) 
     values = {
-        'profiles': Profile.objects.all()
+        'profiles': profiles,
+        'search_query': search_query
     }
     return render(request, 'users/profiles.html', values)
 
