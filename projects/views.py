@@ -3,13 +3,21 @@ from .models import Project
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm 
 from .filters import ProjectFilter
+from .utils import pagination
+
 
 def projects(request):  
     project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
     projects = project_filter.qs # the qs stands for Query Set and returns all the records searched for
+
+    last_page, pages, projects = pagination(projects, request.GET.get('page'))
+
     values = {
         'projects': projects, 
         'project_filter': project_filter,  
+        'last_page': last_page,
+        'pages': pages,
+        'search': request.GET.get('search') or ''
     }
     return render(request, 'projects/projects.html', values)
 
