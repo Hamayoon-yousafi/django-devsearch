@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
-from .utils import search_profiles
+from .utils import search_profiles, pagination
 
 def login_user(request):
     if request.user.is_authenticated:
@@ -58,9 +58,14 @@ def register_user(request):
 
 def profiles(request):
     profiles, search_query = search_profiles(request) 
+
+    last_page, pages, profiles = pagination(profiles, request.GET.get('page'))
+
     values = {
         'profiles': profiles,
-        'search_query': search_query
+        'search_query': search_query,
+        'last_page': last_page,
+        'pages': pages,
     }
     return render(request, 'users/profiles.html', values)
 

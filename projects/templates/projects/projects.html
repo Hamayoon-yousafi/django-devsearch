@@ -60,6 +60,6 @@
       </div>
     </div>
   </section>
-  {% include 'pagination.html' %}
+  {% include 'pagination.html' with queryset=projects pages=pages %}
 </main>
 {% endblock %}
