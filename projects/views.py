@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Project
 from django.contrib.auth.decorators import login_required
-from .forms import ProjectForm 
+from .forms import ProjectForm, ReviewForm
 from .filters import ProjectFilter
 from .utils import pagination
+from django.contrib import messages
 
 
 def projects(request):  
@@ -21,8 +22,22 @@ def projects(request):
     }
     return render(request, 'projects/projects.html', values)
 
-def project(request, id): 
-    return render(request, 'projects/single-project.html', {'project': Project.objects.get(id=id)})
+def project(request, id):
+    form = ReviewForm()
+    project = Project.objects.get(id=id)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        review = form.save(commit=False)
+        review.project = project
+        review.owner = request.user.profile
+        review.save()
+
+        # update project vote count
+        project.get_vote_count # this is the property method on Project model
+
+        messages.success(request, 'Your review was submitted!')
+        return redirect('project', id=project.id)
+    return render(request, 'projects/single-project.html', {'project': project, 'form': form})
 
 @login_required(login_url='login')
 def create_project(request):

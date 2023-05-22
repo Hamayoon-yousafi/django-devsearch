@@ -12,7 +12,7 @@ def login_user(request):
         return redirect('profiles')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
         try:
             user = User.objects.get(username=username)
@@ -23,7 +23,7 @@ def login_user(request):
         if user:
             login(request, user) # this will make a session for the user and store session in the browser's cookies
             messages.success(request, 'Logged in successfully!')
-            return redirect('profiles')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'account')
         else:
             messages.error(request, 'Username or Passwords do not match!')
 
