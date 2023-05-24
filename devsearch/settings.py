@@ -125,6 +125,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+# email configuration. Here I configured email for password reset
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'b18feb81bd05f5'
+EMAIL_HOST_PASSWORD = '80142261617095'
+EMAIL_PORT = '2525'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

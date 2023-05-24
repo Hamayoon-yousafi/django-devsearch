@@ -1,6 +1,8 @@
 from .models import Profile, Skill
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def pagination(query, page):  
@@ -32,3 +34,12 @@ def search_profiles(request):
         Q(skill__in=skills)
     )
     return profiles, search_query
+
+def email_task(subject, message, receivers_list, from_email=settings.EMAIL_HOST_USER):
+    send_mail(
+        subject,
+        message,
+        from_email,
+        receivers_list,
+        fail_silently=False
+    )
