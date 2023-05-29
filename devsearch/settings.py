@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     # installed through pip apps
     'django_filters',
+    'rest_framework',
     
     # below we have registered our newly created app called 'projects'. we need to go to the
     # app folder named 'projects' (in this case) then to the file apps.py
