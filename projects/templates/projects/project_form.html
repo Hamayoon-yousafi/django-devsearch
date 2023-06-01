@@ -18,6 +18,13 @@
 
                 <div class="form__field">
                     <label for="formInput#text">Tags</label>
+                    <div class="form__field">
+                        {% for tag in project.tags.all %}
+                            <div class="project-tag tag tag--pill tag--main" data-tag="{{ tag.id }}" data-project="{{ project.id }}" >
+                                {{ tag.name }} &#215;
+                            </div>
+                        {% endfor %}
+                    </div>
                     <textarea name="newtags" class="input" placeholder="Add tags here..."></textarea>
                 </div>
 
@@ -26,4 +33,28 @@
         </div>
     </div>
 </main>
+
+<script>
+    let tags = document.getElementsByClassName('project-tag')
+
+    for (let tag of tags) {
+        tag.addEventListener('click', (el) => {
+            let tagID = tag.dataset.tag
+            let projectID = tag.dataset.project
+
+            fetch('http://127.0.0.1:8000/api/remove-tag', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 'tag': tagID, 'project': projectID })
+            })
+            .then(response => response.json())
+            .then(data => {
+                tag.remove()
+            })
+        })
+    }
+</script>
+
 {% endblock content %}

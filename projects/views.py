@@ -78,7 +78,8 @@ def update_project(request, pk):
             return redirect('account')
 
     values = {
-        'form': form
+        'form': form,
+        'project': project
     }
     return render(request, 'projects/project_form.html', values) 
 
