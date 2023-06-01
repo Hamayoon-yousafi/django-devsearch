@@ -7,10 +7,11 @@ class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-        exclude = ['vote_total', 'vote_ratio', 'owner']
-        widgets = {
-            'tags': forms.CheckboxSelectMultiple(),
-        }
+        exclude = ['vote_total', 'vote_ratio', 'owner', 'tags']
+        
+        # widgets = {
+        #     'tags': forms.CheckboxSelectMultiple(),
+        # }
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)

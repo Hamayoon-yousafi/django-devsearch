@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Project
+from .models import Project, Tag
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm, ReviewForm
 from .filters import ProjectFilter
@@ -45,11 +45,15 @@ def create_project(request):
     form = ProjectForm()
 
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', ' ').split()
         form = ProjectForm(request.POST, request.FILES) # contains all the data which was sent by the post
         if form.is_valid():
             project = form.save(commit=False)
             project.owner = profile
             project.save()
+            for newtag in newtags:
+                tag, created = Tag.objects.get_or_create(name=newtag)
+                project.tags.add(tag)
             return redirect('account')
 
     values = {
@@ -64,9 +68,13 @@ def update_project(request, pk):
     form = ProjectForm(instance=project)
 
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', ' ').split()
         form = ProjectForm(request.POST, request.FILES, instance=project) # contains all the data which was sent by the post
         if form.is_valid():
-            form.save()
+            project = form.save()
+            for newtag in newtags:
+                tag, created = Tag.objects.get_or_create(name=newtag)
+                project.tags.add(tag)
             return redirect('account')
 
     values = {

@@ -29,7 +29,7 @@
         <div class="column">
           <div class="card project">
             <a href="{% url 'project' project.id %}" class="project" style="width: 100% ;"> 
-              <img class="project__thumbnail" src="{{ project.featured_image.url }}" style="width: 100%;"
+              <img class="project__thumbnail" src="{{ project.imageURL }}" style="width: 100%;"
                 alt="project thumbnail" /> 
               <div class="card__body">
                 <h3 class="project__title">{{ project.title }}</h3>
