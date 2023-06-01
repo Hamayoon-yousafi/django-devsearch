@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # installed through pip apps
     'django_filters',
     'rest_framework',
+    'corsheaders', # for CORS policy handling
     
     # below we have registered our newly created app called 'projects'. we need to go to the
     # app folder named 'projects' (in this case) then to the file apps.py
@@ -98,6 +99,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # This middleware is for CORS headers
     'django.middleware.security.SecurityMiddleware',
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -180,6 +182,9 @@ EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 EMAIL_HOST_USER = 'b18feb81bd05f5'
 EMAIL_HOST_PASSWORD = '80142261617095'
 EMAIL_PORT = '2525'
+
+# for CORS configuration
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
